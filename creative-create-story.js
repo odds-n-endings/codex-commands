@@ -1,23 +1,28 @@
-import { Story, sceneTemplateSuffixForStage } from '../.codex/module.creative/objects/Story.js';
-import { StoryModal } from '../.codex/module.creative/modals/StoryModal.js';
-import { Manuscript } from '../.codex/module.creative/objects/Manuscript.js';
-import { StoryArchive } from '../.codex/module.creative/objects/StoryArchive.js';
-import { getPriorStage } from '../.codex/module.creative/core/manuscriptPipelines.js';
+import {
+	Manuscript,
+	Story,
+	StoryArchive,
+} from '../.codex/creative/objects';
+import { StoryModal } from '../.codex/creative/modals/StoryModal.js';
+import { sceneTemplateSuffixForStage } from '../.codex/creative/controls/scene-template-helpers.js';
+import { getPriorStage } from '../.codex/creative/controls/manuscript-pipelines.js';
 import { Log } from '../.codex/utils/logger.js';
 
-// Unlike create-scene, this command's target folder isn't a scaffold-free
-// destination -- it's the story's own already-cloned submodule root (a lean
-// submodule containing just README/.github, activated via the vault's git
-// workflow before this command runs), and everything below gets built
-// inside it: the Story note itself, one Manuscript per pipeline stage, its
-// scene Templater templates, and the ARCHIVE dashboard + its
-// DRAFTS/CHANGELOG folders.
-// checkCallback (not callback) so the command is only enabled from within a
-// resolvable folder -- checking=true just resolves/validates the folder and
-// returns a boolean; checking=false does that same resolution again (cheap)
-// and then fires the actual async modal + scaffold work below. Must use
-// concise method syntax (not a lambda) or `this.app` is undefined -- see
-// invocable-scripts.md.
+/**
+ * Unlike create-scene, this command's target folder isn't a scaffold-free
+ * destination -- it's the story's own already-cloned submodule root (a lean
+ * submodule containing just README/.github, activated via the vault's git
+ * workflow before this command runs), and everything below gets built inside
+ * it: the Story note itself, one Manuscript per pipeline stage, its
+ * scene Templater templates, the ARCHIVE dashboard and its DRAFTS/CHANGELOG
+ * folders.
+ * checkCallback (not callback) so the command is only enabled from within a
+ * resolvable folder -- checking=true just resolves/validates the folder and
+ * returns a boolean; checking=false does that same resolution again (cheap)
+ * and then fires the actual async modal + scaffold work below. Must use
+ * concise method syntax (not a lambda) or `this.app` is undefined -- see
+ * invocable-scripts.md.
+ */
 export function buildInvokeCommand(app) {
 	return {
 		name: 'Create Story',
@@ -63,7 +68,11 @@ async function runCreateStory(app, folder) {
 			// enforcement lives here.
 			if (!story.titleAbbv) {
 				const error = new Error('Title abbreviation is required to scaffold a story -- it names the generated scene templates.');
-				Log.error('create-story', error.message, error);
+				Log.error(
+					'create-story',
+					error.message,
+					error
+				);
 				throw error;
 			}
 
@@ -75,7 +84,11 @@ async function runCreateStory(app, folder) {
 			// stage's Manuscript below needs a template's actual vault path
 			// to wire into its own longform.sceneTemplate.
 			const sceneTemplatePaths = {}; // suffix -> vault-relative path (with .md)
-			for (const { filename, suffix, content } of story.buildSceneTemplates()) {
+			for (const {
+					filename,
+					suffix,
+					content
+				} of story.buildSceneTemplates()) {
 				const templateFile = await app.vault.create(`${ folder }/${ filename }`, content);
 				sceneTemplatePaths[suffix] = templateFile.path;
 				Log.log('create-story', `Scene template created: ${ filename }`);

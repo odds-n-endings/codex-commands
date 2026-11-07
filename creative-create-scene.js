@@ -1,5 +1,5 @@
-import { Scene } from '../.codex/module.creative/objects/Scene.js';
-import { SceneModal } from '../.codex/module.creative/modals/SceneModal.js';
+import { Scene } from '../.codex/creative/objects/Scene.js';
+import { SceneModal } from '../.codex/creative/modals/SceneModal.js';
 
 // No folder-gating to check yet (still a stub), so `callback` -- not
 // `checkCallback` -- is the right fit here; concise method syntax so

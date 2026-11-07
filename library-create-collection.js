@@ -1,5 +1,5 @@
-import { CollectionModal } from '../.codex/module.library/modals/CollectionModal.js';
-import { Collection } from '../.codex/module.library/objects/Collection.js';
+import { Collection } from '../.codex/library/objects/Collection.js';
+import { CollectionModal } from '../.codex/library/modals/CollectionModal.js';
 import { Log } from '../.codex/utils/logger.js';
 
 const REQUIRED_CITATION_FIELDS = ['year'];

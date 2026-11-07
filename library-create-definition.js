@@ -1,6 +1,6 @@
-import { DefinitionModal } from '../.codex/module.library/modals/DefinitionModal.js';
-import { Definition } from '../.codex/module.library/objects/Definition.js';
-import { resolveLibraryNote } from '../.codex/module.library/controls/resolve-library.js';
+import { Definition } from '../.codex/library/objects/Definition.js';
+import { DefinitionModal } from '../.codex/library/modals/DefinitionModal.js';
+import { resolveLibraryNote } from '../.codex/resolution';
 import { Log } from '../.codex/utils/logger.js';
 
 export function buildInvokeCommand(app) {

@@ -1,7 +1,7 @@
 import { Log } from '../.codex/utils/logger.js';
 
-const LIBRARY_SOURCE_FOLDER = '.obsidian/apparatus/library';
-const TARGET_DOCUMENT_PATH = 'Codex/Library Module/Library Module.md';
+const LIBRARY_SOURCE_FOLDER = '.codex/library';
+const TARGET_DOCUMENT_PATH = '.codex/library/library.md';
 const MARKER_BEGIN = '<!-- BEGIN GENERATED LIBRARY DEPENDENCY TABLE -->';
 const MARKER_END = '<!-- END GENERATED LIBRARY DEPENDENCY TABLE -->';
 

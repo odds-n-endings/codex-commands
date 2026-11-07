@@ -1,5 +1,5 @@
-import { AuthorModal } from '../.codex/module.library/modals/AuthorModal.js';
-import { Author } from '../.codex/module.library/objects/Author.js';
+import { AuthorModal } from '../.codex/library/modals/AuthorModal.js';
+import { Author } from '../.codex/library/objects/Author.js';
 import { Log } from '../.codex/utils/logger.js';
 
 export function buildInvokeCommand(app) {

@@ -1,18 +1,21 @@
-import { Glossary, buildGlossaryBaseContent } from '../.codex/module.library/objects/Glossary.js';
-import { resolveLibraryFolder, resolveLibraryNote } from '../.codex/module.library/controls/resolve-library.js';
+import { Glossary } from '../.codex/library/objects/Glossary.js';
+import { buildGlossaryBaseContent } from '../.codex/library/base-builders';
+import { resolveLibraryFolder, resolveLibraryNote } from '../.codex/resolution';
 import { Log } from '../.codex/utils/logger.js';
 
-// Backfills a Glossary note, its glossary/ folder, and its companion .base
-// file onto a library that predates the Glossary feature, or that is
-// otherwise missing one or more of those three pieces. Idempotent -- only
-// creates whatever is currently missing, leaving anything that already
-// exists untouched.
-//
-// checkCallback (not callback) so the command is only enabled from inside
-// an existing library. resolveLibraryFolder() throws (via Log.error) when
-// the active file isn't inside a library -- checking=true swallows that
-// via try/catch to disable the command, which does mean a Notice fires on
-// every availability check made outside a library, not just on invocation.
+/**
+ * Backfills a Glossary note, its glossary/ folder, and its companion .base
+ * file onto a library that predates the Glossary feature, or that is
+ * otherwise missing one or more of those three pieces. Idempotent -- only
+ * creates whatever is currently missing, leaving anything that already
+ * exists untouched.
+ *
+ * checkCallback (not callback) so the command is only enabled from inside
+ * an existing library. resolveLibraryFolder() throws (via Log.error) when
+ * the active file isn't inside a library -- checking=true swallows that
+ * via try/catch to disable the command, which does mean a Notice fires on
+ * every availability check made outside a library, not just on invocation.
+ */
 export function buildInvokeCommand(app) {
 	return {
 		name: 'Create Library Glossary',
@@ -49,7 +52,7 @@ async function runCreateGlossary(app, libraryFolder) {
 			Log.log('create-glossary', `${ glossaryFolder } created.`);
 		}
 
-		const glossaryBaseFilename = `${ libraryName } Glossary.base`;
+		const glossaryBaseFilename = `${ libraryName } glossary.base`;
 		const glossaryBasePath = `${ glossaryFolder }/${ glossaryBaseFilename }`;
 		if (!app.vault.getAbstractFileByPath(glossaryBasePath)) {
 			await app.vault.create(
@@ -59,7 +62,7 @@ async function runCreateGlossary(app, libraryFolder) {
 			Log.log('create-glossary', `${ glossaryBaseFilename } created.`);
 		}
 
-		const glossaryNotePath = `${ glossaryFolder }/Glossary.md`;
+		const glossaryNotePath = `${ glossaryFolder }/glossary.md`;
 		if (app.vault.getAbstractFileByPath(glossaryNotePath)) {
 			Log.log('create-glossary', `Glossary note already exists at ${ glossaryNotePath } -- nothing further to create.`);
 			await app.workspace.getLeaf(false).openFile(app.vault.getAbstractFileByPath(glossaryNotePath));

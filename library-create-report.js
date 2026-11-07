@@ -1,5 +1,5 @@
-import { ReportModal } from '../.codex/module.library/modals/ReportModal.js';
-import { Report } from '../.codex/module.library/objects/Report.js';
+import { Report } from '../.codex/library/objects/Report.js';
+import { ReportModal } from '../.codex/library/modals/ReportModal.js';
 import { Log } from '../.codex/utils/logger.js';
 
 export function buildInvokeCommand(app) {

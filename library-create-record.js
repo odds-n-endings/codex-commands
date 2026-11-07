@@ -1,5 +1,5 @@
-import { RecordModal } from '../.codex/module.library/modals/RecordModal.js';
-import { Record } from '../.codex/module.library/objects/Record.js';
+import { Record } from '../.codex/library/objects/Record.js';
+import { RecordModal } from '../.codex/library/modals/RecordModal.js';
 import { Log } from '../.codex/utils/logger.js';
 
 const REQUIRED_CITATION_FIELDS = ['authors', 'year'];

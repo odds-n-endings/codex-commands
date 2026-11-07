@@ -1,5 +1,5 @@
-import { ThesisModal } from '../.codex/module.library/modals/ThesisModal.js';
-import { Thesis } from '../.codex/module.library/objects/Thesis.js';
+import { Thesis } from '../.codex/library/objects/Thesis.js';
+import { ThesisModal } from '../.codex/library/modals/ThesisModal.js';
 import { Log } from '../.codex/utils/logger.js';
 
 const REQUIRED_CITATION_FIELDS = [

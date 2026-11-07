@@ -1,18 +1,18 @@
-const { ImageModal } = await requireAsync('../.codex/core.apparatus/modals/ImageModal.js');
-const { Image } = await requireAsync('../.codex/core.apparatus/objects/Image.js');
-const { Log } = await requireAsync('../.codex/utils/logger.js');
+import { Image } from '../.codex/core/objects/Image.js';
+import { ImageModal } from '../.codex/core/modals/ImageModal.js';
+import { Log } from '../.codex/utils/logger.js';
 
 export async function buildInvokeCommand(app) {
 	return {
 		name: 'Create Image',
-		id: 'apparatus-create-image',
-		callback() {
+		id: 'core-create-image',
+		async callback() {
 			new ImageModal(app, async (result) => {
 				try {
 					if (!result.imageVaultPath && !result.source) {
 						const error = new Error('Image requires either a vault path or a source to be meaningful.');
 						Log.error(
-							'apparatus-create-image',
+							'core-create-image',
 							error.message,
 							error
 						);
@@ -25,7 +25,7 @@ export async function buildInvokeCommand(app) {
 					await app.workspace.getLeaf(false).openFile(file);
 				} catch (error) {
 					Log.error(
-						'apparatus-create-image',
+						'core-create-image',
 						'Image creation failed.',
 						error
 					);

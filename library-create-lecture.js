@@ -1,5 +1,5 @@
-import { LectureModal } from '../.codex/module.library/modals/LectureModal.js';
-import { Lecture } from '../.codex/module.library/objects/Lecture.js';
+import { Lecture } from '../.codex/library/objects/Lecture.js';
+import { LectureModal } from '../.codex/library/modals/LectureModal.js';
 import { Log } from '../.codex/utils/logger.js';
 
 const REQUIRED_CITATION_FIELDS = ['authors', 'year'];

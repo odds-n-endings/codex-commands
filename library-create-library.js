@@ -1,12 +1,15 @@
-import { Library } from '../.codex/module.library/objects/Library.js';
-import { LibraryModal } from '../.codex/module.library/modals/LibraryModal.js';
-import { Glossary, buildGlossaryBaseContent } from '../.codex/module.library/objects/Glossary.js';
+import { Library } from '../.codex/library/objects/Library.js';
+import { Glossary } from '../.codex/library/objects/Glossary.js';
+import { LibraryModal } from '../.codex/library/modals/LibraryModal.js';
+import { buildBibliographyBase, buildGlossaryBaseContent } from '../.codex/library/base-builders'
 import { Log } from '../.codex/utils/logger.js';
 
-// checkCallback (not callback) so the command is only enabled from within a
-// resolvable folder -- checking=true just resolves the folder and returns a
-// boolean; checking=false does that same resolution again (cheap) and then
-// fires the actual async modal + scaffold work below.
+/**
+ * checkCallback (not callback) so the command is only enabled from within a
+ * resolvable folder -- checking=true just resolves the folder and returns a
+ * boolean; checking=false does that same resolution again (cheap) and then
+ * fires the actual async modal + scaffold work below.
+ */
 export function buildInvokeCommand(app) {
 	return {
 		name: 'Create Library',
@@ -108,8 +111,10 @@ async function runCreateLibrary(app, folder) {
 	}).open();
 }
 
-// <works> in the sorting-spec listing below is whichever name the curator
-// gave works-folder-name (or the works fallback, if left blank).
+/**
+ * <works> in the sorting-spec listing below is whichever name the curator
+ * gave works-folder-name (or the works fallback, if left blank).
+ */
 function buildSortingSpec(bibliographyFilename, worksFolderName) {
 	return [
 		bibliographyFilename,
@@ -118,26 +123,6 @@ function buildSortingSpec(bibliographyFilename, worksFolderName) {
 		'collections',
 		'glossary',
 		'ARCHIVE',
-		'',
-	].join('\n');
-}
-
-// Scopes the bibliography to this library alone -- every work carrying both
-// this library's own tag and the shared catalog-works tag.
-function buildBibliographyBase(libraryTag) {
-	return [
-		'filters:',
-		'  and:',
-		`    - file.hasTag("${ libraryTag }")`,
-		'    - file.hasTag("catalog-works")',
-		'views:',
-		'  - type: table',
-		'    name: Bibliography',
-		'    order:',
-		'      - file.name',
-		'      - authors',
-		'      - year',
-		'      - citation',
 		'',
 	].join('\n');
 }

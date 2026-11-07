@@ -1,5 +1,5 @@
-import { ArticleModal } from '../.codex/module.library/modals/ArticleModal.js';
-import { Article } from '../.codex/module.library/objects/Article.js';
+import { Article } from '../.codex/library/objects/Article.js';
+import { ArticleModal } from '../.codex/library/modals/ArticleModal.js';
 import { Log } from '../.codex/utils/logger.js';
 
 const REQUIRED_CITATION_FIELDS = [
